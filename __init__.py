@@ -35,6 +35,35 @@ def monhistogramme():
 @app.route("/contact/")
 def contact():
     return render_template("contact.html")
+@app.route('/extract-minutes/<date_string>')
+def extract_minutes(date_string):
+    date_object = datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
+    minutes = date_object.minute
+    return jsonify({'minutes': minutes})
+@app.route("/commits-data/")
+def commits_data():
+    url = "https://api.github.com/repos/OpenRSI/5MCSI_Metriques/commits"
+
+    # GitHub aime bien un User-Agent
+    req = Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    response = urlopen(req)
+    raw = response.read()
+    commits_json = json.loads(raw.decode("utf-8"))
+
+    # Compteur minutes 0..59
+    counts = {m: 0 for m in range(60)}
+
+    for c in commits_json:
+        date_string = c.get("commit", {}).get("author", {}).get("date")
+        if not date_string:
+            continue
+
+        date_object = datetime.strptime(date_string, "%Y-%m-%dT%H:%M:%SZ")
+        minute = date_object.minute
+        counts[minute] += 1
+
+    results = [{"minute": m, "count": counts[m]} for m in range(60)]
+    return jsonify(results=results)
 
 
 if __name__ == "__main__":
