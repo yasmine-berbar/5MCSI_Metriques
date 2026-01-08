@@ -5,59 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Commits</title>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <style>
-    body{
-      margin:0; padding:24px;
-      font-family: Arial, Helvetica, sans-serif;
-      background:#0b1020; color:#e5e7eb;
-    }
-    .wrap{ max-width: 980px; margin:0 auto; }
-    h1{ margin:0 0 8px; font-size:22px; }
-    p{ margin:0 0 18px; color:#cbd5e1; }
-    #chart_div{
-      background: rgba(255,255,255,0.04);
-      border:1px solid rgba(255,255,255,0.10);
-      border-radius:16px;
-      padding:12px;
-      height:520px;
-    }
-  </style>
 </head>
-<body>
-  <div class="wrap">
-    <h1>Commits minute par minute</h1>
-    <p>Histogramme : nombre de commits regroupés par minute (0 à 59) via l’API GitHub.</p>
-    <div id="chart_div"></div>
-  </div>
+
+<body style="font-family: Arial, sans-serif; padding: 16px;">
+  <h2>Commits par minute</h2>
+  <div id="chart_div" style="width: 100%; height: 520px;"></div>
 
   <script>
     google.charts.load('current', { packages: ['corechart'] });
-    google.charts.setOnLoadCallback(loadData);
+    google.charts.setOnLoadCallback(drawChart);
 
-    function loadData(){
+    function drawChart() {
       fetch('/commits-data/')
         .then(r => r.json())
-        .then(payload => drawChart(payload));
-    }
+        .then(data => {
+          const dataTable = new google.visualization.DataTable();
+          dataTable.addColumn('string', 'Minute');
+          dataTable.addColumn('number', 'Commits');
 
-    function drawChart(payload){
-      var dataTable = new google.visualization.DataTable();
-      dataTable.addColumn('number', 'Minute');
-      dataTable.addColumn('number', 'Commits');
+          data.results.forEach(row => {
+            dataTable.addRow([row.minute, row.count]);
+          });
 
-      payload.results.forEach(row => {
-        dataTable.addRow([row.minute, row.count]);
-      });
+          const options = {
+            title: 'Nombre de commits (agrégé par minute)',
+            legend: { position: 'none' },
+            hAxis: { title: 'Minute', slantedText: true, slantedTextAngle: 45 },
+            vAxis: { title: 'Commits' }
+          };
 
-      var options = {
-        title: 'Nombre de commits par minute',
-        legend: { position: 'none' },
-        hAxis: { title: 'Minute (0-59)' },
-        vAxis: { title: 'Commits' }
-      };
-
-      var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-      chart.draw(dataTable, options);
+          const chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+          chart.draw(dataTable, options);
+        });
     }
   </script>
 </body>
