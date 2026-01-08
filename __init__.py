@@ -61,9 +61,8 @@ def monhistogramme():
 # ----------------------------
 @app.route("/commits-data/")
 def commits_data():
-    # ⚠️ IMPORTANT : remplace OpenRSI/5MCSI_Metriques par TON repo fork
-    # Exemple : "TonPseudo/5MCSI_Metriques"
-    api_url = "https://api.github.com/repos/OpenRSI/5MCSI_Metriques/commits?per_page=100"
+
+    api_url = "https://api.github.com/repos/yasmine-berbar/5MCSI_Metriques/commits?per_page=100"
 
     req = Request(api_url, headers={"User-Agent": "Mozilla/5.0"})
     response = urlopen(req)
