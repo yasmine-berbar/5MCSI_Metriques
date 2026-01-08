@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Contact</title>
+  <style>
+    body{
+      margin:0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(120deg, #0f172a, #111827);
+      color:#e5e7eb;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
+    .card{
+      width:100%;
+      max-width:760px;
+      background: rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius:18px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+      overflow:hidden;
+    }
+    header{
+      padding:26px 26px 18px;
+      background: rgba(0,0,0,0.18);
+      border-bottom:1px solid rgba(255,255,255,0.10);
+    }
+    h1{ margin:0; font-size:22px; letter-spacing:0.3px;}
+    p.sub{ margin:8px 0 0; color:#cbd5e1; font-size:14px; line-height:1.4;}
+    .content{ padding:26px; }
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    label{ font-size:13px; color:#cbd5e1; display:block; margin:0 0 6px;}
+    input, textarea{
+      width:100%;
+      box-sizing:border-box;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.14);
+      background: rgba(15,23,42,0.55);
+      color:#e5e7eb;
+      padding:12px 12px;
+      outline:none;
+      transition: 0.2s;
+    }
+    input:focus, textarea:focus{
+      border-color: rgba(56,189,248,0.7);
+      box-shadow: 0 0 0 4px rgba(56,189,248,0.12);
+    }
+    textarea{ min-height:140px; resize:vertical; }
+    .full{ grid-column: 1 / -1; }
+    .actions{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-top:18px;
+      flex-wrap:wrap;
+    }
+    button{
+      border:0;
+      cursor:pointer;
+      border-radius:12px;
+      padding:12px 16px;
+      font-weight:700;
+      background: linear-gradient(90deg, #38bdf8, #a78bfa);
+      color:#0b1020;
+      box-shadow: 0 12px 30px rgba(56,189,248,0.18);
+      transition: transform 0.08s ease;
+    }
+    button:active{ transform: translateY(1px); }
+    .note{
+      color:#cbd5e1;
+      font-size:12px;
+      opacity:0.95;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      font-size:12px;
+      background: rgba(16,185,129,0.12);
+      border:1px solid rgba(16,185,129,0.25);
+      color:#a7f3d0;
+    }
+    @media (max-width: 640px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <header>
+      <div class="badge">✔ Formulaire de contact (démo)</div>
+      <h1>Me contacter</h1>
+      <p class="sub">
+        Laisse ton nom, ton prénom et un message. (L’enregistrement n’est pas actif : c’est pour l’évaluation du design.)
+      </p>
+    </header>
+
+    <div class="content">
+      <form>
+        <div class="grid">
+          <div>
+            <label for="prenom">Prénom</label>
+            <input id="prenom" name="prenom" type="text" placeholder="Ex : Yasmine" required>
+          </div>
+
+          <div>
+            <label for="nom">Nom</label>
+            <input id="nom" name="nom" type="text" placeholder="Ex : Berbar" required>
+          </div>
+
+          <div class="full">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Écris ton message ici..." required></textarea>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="submit">Envoyer</button>
+          <div class="note">Astuce : tu peux ajouter ton email / liens / logo ici si tu veux.</div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Démo UI : on empêche l'envoi réel (pas d'enregistrement demandé)
+    document.querySelector("form").addEventListener("submit", function(e){
+      e.preventDefault();
+      alert("Merci ! (Démo) Ton message n'est pas enregistré dans cet exercice.");
+    });
+  </script>
+</body>
+</html>
