@@ -4,141 +4,442 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Contact</title>
+
+  <!-- Police premium -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
+    :root{
+      --bg1:#070A12;
+      --bg2:#0B1222;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.08);
+      --stroke: rgba(255,255,255,.12);
+      --text:#EAF0FF;
+      --muted:#A7B0C6;
+      --muted2:#7E8AA7;
+      --accent:#6EE7FF;
+      --accent2:#A78BFA;
+      --success:#34D399;
+      --shadow: 0 30px 90px rgba(0,0,0,.55);
+      --radius: 18px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
     body{
       margin:0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(120deg, #0f172a, #111827);
-      color:#e5e7eb;
-      min-height:100vh;
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 20% 10%, rgba(110,231,255,.14), transparent 60%),
+        radial-gradient(900px 500px at 80% 30%, rgba(167,139,250,.14), transparent 60%),
+        linear-gradient(160deg, var(--bg1), var(--bg2));
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:24px;
+      padding:28px;
     }
-    .card{
+
+    .wrap{
       width:100%;
-      max-width:760px;
-      background: rgba(255,255,255,0.06);
-      border:1px solid rgba(255,255,255,0.12);
-      border-radius:18px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
-      overflow:hidden;
-    }
-    header{
-      padding:26px 26px 18px;
-      background: rgba(0,0,0,0.18);
-      border-bottom:1px solid rgba(255,255,255,0.10);
-    }
-    h1{ margin:0; font-size:22px; letter-spacing:0.3px;}
-    p.sub{ margin:8px 0 0; color:#cbd5e1; font-size:14px; line-height:1.4;}
-    .content{ padding:26px; }
-    .grid{
+      max-width: 980px;
       display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:14px;
+      grid-template-columns: 1.05fr .95fr;
+      gap:18px;
     }
-    label{ font-size:13px; color:#cbd5e1; display:block; margin:0 0 6px;}
-    input, textarea{
-      width:100%;
-      box-sizing:border-box;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,0.14);
-      background: rgba(15,23,42,0.55);
-      color:#e5e7eb;
-      padding:12px 12px;
-      outline:none;
-      transition: 0.2s;
+
+    .panel{
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, var(--panel), rgba(255,255,255,.03));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
-    input:focus, textarea:focus{
-      border-color: rgba(56,189,248,0.7);
-      box-shadow: 0 0 0 4px rgba(56,189,248,0.12);
+
+    /* Left: header / info */
+    .hero{
+      padding:28px;
+      position:relative;
+      min-height: 420px;
     }
-    textarea{ min-height:140px; resize:vertical; }
-    .full{ grid-column: 1 / -1; }
-    .actions{
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color: var(--muted);
+      font-weight:600;
+      letter-spacing:.2px;
+      font-size:13px;
+    }
+
+    .dot{
+      width:10px;height:10px;border-radius:999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 0 6px rgba(110,231,255,.08);
+    }
+
+    h1{
+      margin:14px 0 10px;
+      font-size:28px;
+      line-height:1.15;
+      letter-spacing:-.4px;
+    }
+
+    .lead{
+      margin:0 0 18px;
+      color: var(--muted);
+      line-height:1.5;
+      font-size:14px;
+      max-width: 44ch;
+    }
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:18px;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      font-size:12px;
+    }
+    .chip i{
+      width:8px;height:8px;border-radius:999px;
+      background: rgba(52,211,153,.9);
+      box-shadow: 0 0 0 6px rgba(52,211,153,.12);
+      display:inline-block;
+    }
+
+    .mini{
+      margin-top:22px;
+      padding:14px 14px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      color: var(--muted);
+      font-size:12px;
+      line-height:1.45;
+    }
+
+    /* Right: form */
+    .form{
+      padding:22px;
+    }
+
+    .formHead{
+      padding:18px 18px 14px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.16);
+    }
+    .formHeadTitle{
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:12px;
-      margin-top:18px;
-      flex-wrap:wrap;
     }
-    button{
-      border:0;
-      cursor:pointer;
-      border-radius:12px;
-      padding:12px 16px;
-      font-weight:700;
-      background: linear-gradient(90deg, #38bdf8, #a78bfa);
-      color:#0b1020;
-      box-shadow: 0 12px 30px rgba(56,189,248,0.18);
-      transition: transform 0.08s ease;
-    }
-    button:active{ transform: translateY(1px); }
-    .note{
-      color:#cbd5e1;
-      font-size:12px;
-      opacity:0.95;
-    }
-    .badge{
+    .pill{
       display:inline-flex;
       align-items:center;
       gap:8px;
       padding:8px 10px;
       border-radius:999px;
       font-size:12px;
-      background: rgba(16,185,129,0.12);
-      border:1px solid rgba(16,185,129,0.25);
-      color:#a7f3d0;
+      color: #CFFAFE;
+      border:1px solid rgba(110,231,255,.22);
+      background: rgba(110,231,255,.08);
+      white-space:nowrap;
     }
-    @media (max-width: 640px){
+    .pill span{
+      width:8px;height:8px;border-radius:999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display:inline-block;
+    }
+
+    .form h2{
+      margin:0;
+      font-size:16px;
+      letter-spacing:-.2px;
+    }
+
+    .formBody{
+      padding:18px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+
+    label{
+      display:block;
+      font-size:12px;
+      font-weight:600;
+      color: var(--muted);
+      margin:0 0 8px;
+    }
+
+    .field{
+      position:relative;
+    }
+
+    input, textarea{
+      width:100%;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(8,12,24,.55);
+      color: var(--text);
+      padding:12px 12px;
+      outline:none;
+      transition: border-color .2s ease, box-shadow .2s ease, transform .08s ease;
+      font-size:14px;
+    }
+
+    textarea{
+      min-height:140px;
+      resize: vertical;
+      padding-top:12px;
+    }
+
+    input::placeholder, textarea::placeholder{ color: rgba(167,176,198,.65); }
+
+    input:focus, textarea:focus{
+      border-color: rgba(110,231,255,.55);
+      box-shadow: 0 0 0 5px rgba(110,231,255,.10);
+    }
+
+    .hint{
+      margin-top:8px;
+      font-size:12px;
+      color: var(--muted2);
+    }
+
+    .full{ grid-column: 1 / -1; }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      margin-top:16px;
+      flex-wrap:wrap;
+    }
+
+    .btns{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+
+    button{
+      border:0;
+      cursor:pointer;
+      border-radius: 14px;
+      padding:12px 14px;
+      font-weight:700;
+      font-size:14px;
+      transition: transform .08s ease, box-shadow .2s ease, opacity .2s ease;
+    }
+
+    .primary{
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      color:#061023;
+      box-shadow: 0 16px 40px rgba(110,231,255,.14);
+    }
+    .primary:active{ transform: translateY(1px); }
+
+    .ghost{
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .ghost:hover{ opacity:.95; }
+
+    .fineprint{
+      color: var(--muted2);
+      font-size:12px;
+      line-height:1.35;
+      max-width: 44ch;
+    }
+
+    /* Toast */
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      transform: translateX(-50%) translateY(20px);
+      opacity:0;
+      pointer-events:none;
+      padding:12px 14px;
+      border-radius: 14px;
+      border:1px solid rgba(52,211,153,.25);
+      background: rgba(16,185,129,.12);
+      color:#D1FAE5;
+      font-size:13px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+      transition: opacity .25s ease, transform .25s ease;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .toast.show{
+      opacity:1;
+      transform: translateX(-50%) translateY(0px);
+    }
+    .check{
+      width:18px;height:18px;border-radius:999px;
+      background: rgba(52,211,153,.22);
+      display:flex;align-items:center;justify-content:center;
+      border:1px solid rgba(52,211,153,.35);
+      font-weight:900;
+    }
+
+    @media (max-width: 880px){
+      .wrap{ grid-template-columns: 1fr; }
+      .hero{ min-height: unset; }
+    }
+    @media (max-width: 520px){
       .grid{ grid-template-columns: 1fr; }
     }
   </style>
 </head>
+
 <body>
-  <div class="card">
-    <header>
-      <div class="badge">✔ Formulaire de contact (démo)</div>
-      <h1>Me contacter</h1>
-      <p class="sub">
-        Laisse ton nom, ton prénom et un message. (L’enregistrement n’est pas actif : c’est pour l’évaluation du design.)
+  <div class="wrap">
+    <!-- Premium intro -->
+    <section class="panel hero">
+      <div class="brand">
+        <span class="dot"></span>
+        <span>Portfolio • Projet Métriques</span>
+      </div>
+
+      <h1>Contact — simple, propre, premium.</h1>
+      <p class="lead">
+        Remplis le formulaire en quelques secondes. L’enregistrement n’est pas actif (exercice design),
+        mais l’interface est pensée comme un produit “pro”.
       </p>
-    </header>
 
-    <div class="content">
-      <form>
-        <div class="grid">
-          <div>
-            <label for="prenom">Prénom</label>
-            <input id="prenom" name="prenom" type="text" placeholder="Ex : Yasmine" required>
-          </div>
+      <div class="chips">
+        <div class="chip"><i></i> Champs clairs</div>
+        <div class="chip"><i></i> Responsive mobile</div>
+        <div class="chip"><i></i> Micro-interactions</div>
+      </div>
 
-          <div>
-            <label for="nom">Nom</label>
-            <input id="nom" name="nom" type="text" placeholder="Ex : Berbar" required>
-          </div>
+      <div class="mini">
+        <strong>Note :</strong> Le bouton “Envoyer” affiche une confirmation (démo) sans sauvegarde.
+        Tu peux aussi ajouter ton email, ton LinkedIn ou ton logo dans cette zone si tu veux.
+      </div>
+    </section>
 
-          <div class="full">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" placeholder="Écris ton message ici..." required></textarea>
-          </div>
+    <!-- Form -->
+    <section class="panel">
+      <div class="formHead">
+        <div class="formHeadTitle">
+          <h2 class="form">Formulaire</h2>
+          <div class="pill"><span></span> Démo (sans stockage)</div>
         </div>
+      </div>
 
-        <div class="actions">
-          <button type="submit">Envoyer</button>
-          <div class="note">Astuce : tu peux ajouter ton email / liens / logo ici si tu veux.</div>
-        </div>
-      </form>
-    </div>
+      <div class="formBody">
+        <form id="contactForm" novalidate>
+          <div class="grid">
+            <div class="field">
+              <label for="prenom">Prénom</label>
+              <input id="prenom" name="prenom" type="text" placeholder="Ex : Yasmine" required>
+              <div class="hint">Indique ton prénom (obligatoire).</div>
+            </div>
+
+            <div class="field">
+              <label for="nom">Nom</label>
+              <input id="nom" name="nom" type="text" placeholder="Ex : Berbar" required>
+              <div class="hint">Indique ton nom (obligatoire).</div>
+            </div>
+
+            <div class="field full">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Écris ton message ici..." required></textarea>
+              <div class="hint">Décris ta demande en 1–2 phrases.</div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <div class="btns">
+              <button class="primary" type="submit">Envoyer</button>
+              <button class="ghost" type="button" id="resetBtn">Effacer</button>
+            </div>
+
+            <div class="fineprint">
+              En cliquant sur “Envoyer”, tu verras une confirmation (démo).
+              Aucun enregistrement n’est effectué dans cet exercice.
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast">
+    <span class="check">✓</span>
+    <span><strong>Envoyé !</strong> (Démo) Ton message n’a pas été sauvegardé.</span>
   </div>
 
   <script>
-    // Démo UI : on empêche l'envoi réel (pas d'enregistrement demandé)
-    document.querySelector("form").addEventListener("submit", function(e){
+    const form = document.getElementById("contactForm");
+    const toast = document.getElementById("toast");
+    const resetBtn = document.getElementById("resetBtn");
+
+    function showToast(){
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+
+    function validate(){
+      const prenom = document.getElementById("prenom");
+      const nom = document.getElementById("nom");
+      const msg = document.getElementById("message");
+
+      // Validation simple & clean
+      let ok = true;
+      [prenom, nom, msg].forEach(el => {
+        if(!el.value || el.value.trim().length < 2){
+          ok = false;
+          el.style.borderColor = "rgba(248,113,113,.65)";
+          el.style.boxShadow = "0 0 0 5px rgba(248,113,113,.10)";
+        } else {
+          el.style.borderColor = "rgba(255,255,255,.12)";
+          el.style.boxShadow = "none";
+        }
+      });
+      return ok;
+    }
+
+    form.addEventListener("submit", (e) => {
       e.preventDefault();
-      alert("Merci ! (Démo) Ton message n'est pas enregistré dans cet exercice.");
+      if(!validate()) return;
+      showToast();
+      form.reset();
+    });
+
+    resetBtn.addEventListener("click", () => {
+      form.reset();
+      ["prenom","nom","message"].forEach(id=>{
+        const el = document.getElementById(id);
+        el.style.borderColor = "rgba(255,255,255,.12)";
+        el.style.boxShadow = "none";
+      });
     });
   </script>
 </body>
